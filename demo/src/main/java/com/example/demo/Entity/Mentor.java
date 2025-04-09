@@ -6,6 +6,7 @@ import java.util.List;
 @Entity
 @Table(name = "mentors")
 public class Mentor extends User {
+
     private String industry;
     private String expertise;
 

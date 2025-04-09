@@ -6,15 +6,24 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "messages")
 public class Message {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String senderId;  // Changed from User sender
-    private String receiverId; // Changed from User receiver
+    private String senderId;
+    private String receiverId;
     private String content;
     private LocalDateTime timestamp;
     private boolean isRead;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender_ref")
+    private User senderRef;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "receiver_ref")
+    private User receiverRef;
 
     public Message() {}
 
@@ -43,4 +52,10 @@ public class Message {
 
     public boolean isRead() { return isRead; }
     public void setRead(boolean read) { isRead = read; }
+
+    public User getSenderRef() { return senderRef; }
+    public void setSenderRef(User senderRef) { this.senderRef = senderRef; }
+
+    public User getReceiverRef() { return receiverRef; }
+    public void setReceiverRef(User receiverRef) { this.receiverRef = receiverRef; }
 }

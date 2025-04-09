@@ -6,17 +6,25 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "sessions")
 public class Session {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String mentor; // Changed from Mentor object to String
-    private String mentee; // Changed from Mentee object to String
-
+    private String mentor;
+    private String mentee;
     private LocalDateTime scheduledTime;
     private String meetingLink;
-    private String status; 
-    private String title;  
+    private String status;
+    private String title;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mentor_ref")
+    private Mentor mentorRef;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mentee_ref")
+    private Mentee menteeRef;
 
     public Session() {}
 
@@ -47,10 +55,16 @@ public class Session {
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
-    public String getTitle() { return title; }  
+    public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
 
-    public String getSession() {  
+    public String getSession() {
         return "Session Title: " + title + ", Mentor: " + mentor + ", Mentee: " + mentee;
     }
+
+    public Mentor getMentorRef() { return mentorRef; }
+    public void setMentorRef(Mentor mentorRef) { this.mentorRef = mentorRef; }
+
+    public Mentee getMenteeRef() { return menteeRef; }
+    public void setMenteeRef(Mentee menteeRef) { this.menteeRef = menteeRef; }
 }

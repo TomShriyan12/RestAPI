@@ -6,8 +6,9 @@ import java.util.List;
 @Entity
 @Table(name = "mentees")
 public class Mentee extends User {
+
     private String careerGoal;
-    
+
     @ElementCollection
     private List<String> interests;
 
